@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Cabeçalho da aplicação -->
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+	<!-- Cabeçalho da aplicação -->
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+
+		<div class="starter-template">
+		
+			<form action="/alterar" method="post">
+				<div class="form-group">
+					<input id="id" name="id" th:value="${convidado.id}" type="hidden" />
+					<label for="nome">Nome</label> 
+					<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" th:value="${convidado.nome}" /> 
+					<label for="email">Email</label>
+					<input type="email" class="form-control" id="email" name="email" placeholder="Email" th:value="${convidado.email}" /> 
+					<label for="telefone">Telefone</label> 
+					<input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone" th:value="${convidado.telefone}" />
+					<button type="submit" class="btn btn-lg btn-primary">Alterar</button>
+				</div>
+			</form>
+			
+		</div>
+
+		<p>
+			<a href="/admin">Voltar</a>
+		</p>
+
+	</div>
+
+	<!-- Rodapé da aplicação -->
+	<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

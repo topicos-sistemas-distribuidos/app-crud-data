@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -123,7 +125,7 @@ private static final long serialVersionUID = 1L;
 	 * Carrega o formulário Inserir Usuário
 	 * @return página TelaInserirUsuario.jsp | Home.jsp
 	 */
-	@RequestMapping("/inserirUsuario")
+	@RequestMapping(value="/inserirUsuario", method = RequestMethod.GET)
 	public String carregarFormularioInserir(Model model) {
 		Usuario usuario = new Usuario();
 		
@@ -141,9 +143,14 @@ private static final long serialVersionUID = 1L;
 	 * @throws ServletException 
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/inserirUsuario", params={"save"})
-	public String processarInserirUsuario(final Usuario usuario, final String papel, RedirectAttributes redirectAttribute){
+	@RequestMapping(value="/inserirUsuario", params={"save"}, method=RequestMethod.POST)
+	public String processarInserirUsuario(@Valid Usuario usuario, BindingResult bindingResult, final String papel, RedirectAttributes redirectAttribute){
 		String senhaOriginal; 
+		
+		if (bindingResult.hasErrors()) {
+			return "/inserirUsuario";
+		}
+		
 		senhaOriginal = usuario.getSenha();
 				 
 		usuarioService.inserir(usuario);

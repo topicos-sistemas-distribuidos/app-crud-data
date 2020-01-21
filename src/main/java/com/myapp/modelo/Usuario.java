@@ -7,20 +7,22 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity(name = "usuario")
 public class Usuario{
 private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
-	@NotNull
-	@Size(min=4, max=255)
+	@NotEmpty
+	@Size(min=4, max=255, message = "{user.name.not.valid}")
 	String nome;
 	@NotNull
 	@Size(min=4, max=20)
 	String login;
 	@NotNull
-	@Size(min=5, max=255)
+	@Size(min=5, max=255, message = "{user.email.not.valid}")
 	String email;
 	@NotNull
 	@Size(min=4, max=16)
